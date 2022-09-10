@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/menuProfile"
+        android:icon="@drawable/ic_account_box"
+        android:title="@string/p_profile" />
+
+
+    <item
+        android:id="@+id/menuTemperature"
+        android:icon="@drawable/ic_temperature"
+        android:title="@string/p_temperature"/>
+
+    <item
+        android:id="@+id/menuBloodPressure"
+        android:icon="@drawable/ic_bloodpress"
+        android:title="@string/p_pressure"/>
+
+</menu>

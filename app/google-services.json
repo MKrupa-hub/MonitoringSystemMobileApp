@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "135517340111",
+    "firebase_url": "https://the-slate-358716-default-rtdb.firebaseio.com",
+    "project_id": "the-slate-358716",
+    "storage_bucket": "the-slate-358716.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:135517340111:android:1b95b1200c864e8b3512ba",
+        "android_client_info": {
+          "package_name": "com.example.monitoringsystem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "135517340111-f6k2ijhe5llvov2v4n0qk1ugs1akpktv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFvVaZCIPaNiLCPOvOAZyw3VrspxSvKs4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "135517340111-f6k2ijhe5llvov2v4n0qk1ugs1akpktv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
