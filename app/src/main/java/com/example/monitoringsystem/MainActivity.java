@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         case 'P':
                             allert('P');
-                            patientActivity();
+                            patientActivity(login.getText().toString());
                             break;
                         }
                     }
@@ -113,8 +113,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void patientActivity(){
+    public void patientActivity(String login){
         Intent intent = new Intent(this, PatientActivity.class);
+        intent.putExtra("login", login);
         startActivity(intent);
     }
 

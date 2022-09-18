@@ -108,4 +108,7 @@
     <string name="p_temperature">Temperatura</string>
     <string name="p_pressure">Ciśnienie krwi</string>
     <string name="health_monitoring">Monitoring Zdrowia</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ptitle">Profil pacjenta</string>
 </resources>

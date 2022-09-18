@@ -7,12 +7,12 @@ public class User {
     public int phone;
     public String login;
     public String password;
-    public double pesel;
+    public long pesel;
 
     public User() {
     }
 
-    public User(String name, String surname, int phone, String login, String password, double pesel) {
+    public User(String name, String surname, int phone, String login, String password, long pesel) {
         this.name = name;
         this.surname = surname;
         this.phone = phone;
