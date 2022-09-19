@@ -1,5 +1,6 @@
 package com.example.monitoringsystem.fragments;
 
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
@@ -17,6 +18,8 @@ import android.app.DatePickerDialog;
 
 public class pTemperatureFragment extends Fragment {
 
+    EditText textDate;
+    EditText textTime;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -29,17 +32,32 @@ public class pTemperatureFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        EditText editText = getView().findViewById(R.id.textDate);
-        editText.setFocusable(false);
-        editText.setClickable(true);
-        editText.setOnClickListener(new View.OnClickListener() {
+        textDate = getView().findViewById(R.id.textDate);
+        textTime = getView().findViewById(R.id.textTime);
+        makeTextNotEditable(textDate);
+        makeTextNotEditable(textTime);
+
+        textDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFragment newFragment = new SelectDateFragment();
-                newFragment.show(getFragmentManager(), "DatePicker");
+                DialogFragment dateFragment = new SelectDateFragment();
+                dateFragment.show(getFragmentManager(), "DatePicker");
+            }
+        });
+
+        textTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogFragment timeFragment = new SelectedTimeFragment();
+                timeFragment.show(getFragmentManager(), "TimePicker");
+
             }
         });
     }
 
+    private void makeTextNotEditable(EditText editText){
+        editText.setFocusable(false);
+        editText.setClickable(true);
+    }
 
 }
