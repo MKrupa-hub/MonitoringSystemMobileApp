@@ -17,7 +17,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 /**
@@ -37,8 +36,8 @@ public class pProfileFragment extends Fragment {
         super.onStart();
             PatientActivity patientActivity = (PatientActivity) getActivity();
             TextView textView = getView().findViewById(R.id.login_display);
-            textView.setText(patientActivity.sendDataToFragment());
-            fillData(patientActivity.sendDataToFragment());
+            textView.setText(patientActivity.sendLoginToFragment());
+            fillData(patientActivity.sendLoginToFragment());
 
     }
 
@@ -55,13 +54,10 @@ public class pProfileFragment extends Fragment {
                     TextView textViewPhone = getView().findViewById(R.id.phone_display);
 
 
-                    textViewName.setText(user.name);
-                    textViewSurname.setText(user.surname);
-                    textViewPhone.setText(String.valueOf(user.phone));
-                    textViewPesel.setText(String.valueOf(user.pesel));
-
-
-
+                    textViewName.setText(user.getName());
+                    textViewSurname.setText(user.getSurname());
+                    textViewPhone.setText(String.valueOf(user.getPhone()));
+                    textViewPesel.setText(String.valueOf(user.getPesel()));
                 }
             }
 

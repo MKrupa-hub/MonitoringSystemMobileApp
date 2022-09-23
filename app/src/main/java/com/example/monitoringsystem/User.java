@@ -2,12 +2,12 @@ package com.example.monitoringsystem;
 
 public class User {
 
-    public String name;
-    public String surname;
-    public int phone;
-    public String login;
-    public String password;
-    public long pesel;
+    private String name;
+    private String surname;
+    private int phone;
+    private String login;
+    private String password;
+    private long pesel;
 
     public User() {
     }
@@ -21,4 +21,23 @@ public class User {
         this.pesel = pesel;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public int getPhone() {
+        return phone;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public long getPesel() {
+        return pesel;
+    }
 }

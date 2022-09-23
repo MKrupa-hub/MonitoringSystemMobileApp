@@ -31,7 +31,7 @@ public class SelectedTimeFragment extends DialogFragment implements TimePickerDi
     public void onTimeSet(TimePicker timePicker, int h, int m) {
         Fragment fragment = getParentFragment();
         EditText textView = fragment.getView().findViewById(R.id.textTime);
-        String date = h+"/"+m;
+        String date = h+":"+m;
         textView.setText(date);
     }
 }

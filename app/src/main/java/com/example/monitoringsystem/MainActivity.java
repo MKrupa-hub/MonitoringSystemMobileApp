@@ -4,8 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
@@ -24,13 +27,15 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
+    EditText login;
+    EditText password;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         Button button_login = (Button) findViewById(R.id.log_in);
-
         button_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,8 +45,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void log_in(View view) {
-        EditText login = (EditText) findViewById(R.id.login);
-        EditText password = (EditText) findViewById(R.id.password);
+        login = findViewById(R.id.login);
+        password = findViewById(R.id.password);
         if(password.getText().toString().equals("") || login.getText().toString().equals("")){
             allert('B');
             return;
@@ -124,4 +129,5 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }
+
 }

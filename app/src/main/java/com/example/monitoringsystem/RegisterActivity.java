@@ -84,14 +84,14 @@ public class RegisterActivity extends AppCompatActivity {
                     if (checkBox.isChecked()) {
                         sb.insert(0, 'L');
                         User user = new User(name.getText().toString(), surname.getText().toString(), Integer.parseInt(phone.getText().toString()), sb.toString(), password.getText().toString(), Long.parseLong(pesel.getText().toString()));
-                        mDatabase.child("users").child(user.login).setValue(user);
-                        Toast.makeText(RegisterActivity.this, "Utworzono konto twój login:!" + user.login, Toast.LENGTH_SHORT).show();
+                        mDatabase.child("users").child(user.getLogin()).setValue(user);
+                        Toast.makeText(RegisterActivity.this, "Utworzono konto twój login:!" + user.getLogin(), Toast.LENGTH_SHORT).show();
                     } else {
                         sb.insert(0, 'P');
                         User user = new User(name.getText().toString(), surname.getText().toString(), Integer.parseInt(phone.getText().toString()), sb.toString(), password.getText().toString(), Long.parseLong(pesel.getText().toString()));
-                        mDatabase.child("users").child(user.login).setValue(user);
+                        mDatabase.child("users").child(user.getLogin()).setValue(user);
                         for (int i = 0; i < 3; i++) {
-                            Toast.makeText(RegisterActivity.this, "Utworzono konto twój login: " + user.login + " zapamiętaj go.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(RegisterActivity.this, "Utworzono konto twój login: " + user.getLogin() + " zapamiętaj go.", Toast.LENGTH_LONG).show();
                         }
                     }
 

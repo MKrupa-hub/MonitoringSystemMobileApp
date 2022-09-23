@@ -46,7 +46,7 @@ public class PatientActivity extends AppCompatActivity {
 
 
 
-    public String sendDataToFragment(){
+    public String sendLoginToFragment(){
         return login;
     }
 
