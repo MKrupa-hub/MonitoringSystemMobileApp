@@ -139,7 +139,7 @@
         style="@style/r_pesel"
         android:layout_marginTop="10dp"
         android:hint="@string/give_pesel"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         android:maxLength="11"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"

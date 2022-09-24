@@ -109,7 +109,7 @@ public class pPressureFragment extends Fragment {
                 Pressure pressure = new Pressure(login,textDate.getText().toString(),
                         textTime.getText().toString(),Integer.parseInt(textS.getText().toString()),
                         Integer.parseInt(textR.getText().toString()),Integer.parseInt(textPulse.getText().toString()));
-                reference.child(pressure.getLogin()).child(String.valueOf(snapshot.getChildrenCount() + 1)).setValue(pressure);
+                reference.child(pressure.getLogin()).child(String.valueOf(snapshot.child(pressure.getLogin()).getChildrenCount() + 1)).setValue(pressure);
                 Toast.makeText(getContext(), "Dodano!", Toast.LENGTH_SHORT).show();
             }
 

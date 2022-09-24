@@ -103,7 +103,7 @@ public class pTemperatureFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Temperature temperature = new Temperature(login,textDate.getText().toString(),textTime.getText().toString(),Float.parseFloat(textTemperature.getText().toString()));
-                reference.child(temperature.getLogin()).child(String.valueOf(snapshot.getChildrenCount() + 1)).setValue(temperature);
+                reference.child(temperature.getLogin()).child(String.valueOf(snapshot.child(temperature.getLogin()).getChildrenCount() + 1)).setValue(temperature);
                 Toast.makeText(getContext(), "Dodano!", Toast.LENGTH_SHORT).show();
             }
 
