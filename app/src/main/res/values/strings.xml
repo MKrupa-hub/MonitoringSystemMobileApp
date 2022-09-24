@@ -113,4 +113,15 @@
     <string name="ptitle">Profil pacjenta</string>
     <string name="last_temp">Ostatni pomiar temperatury:</string>
     <string name="add">Dodaj</string>
+    <string name="Date">Data</string>
+    <string name="Time">Godzina</string>
+    <string name="pulse">Puls</string>
+    <string name="Pressure_s">Ciśnienie skurczowe</string>
+    <string name="Pressure_r">Ciśnienie rozkurczowe</string>
+    <string name="PressS">Skurczowe</string>
+    <string name="PressR">Rozkurczowe</string>
+    <string name="load">Wczytaj</string>
+    <string name="Loadlastpress">Wczytaj poprzedni pomiar</string>
+    <string name="Save">Zapisz</string>
+    <string name="dtitle">Profil lekarza</string>
 </resources>

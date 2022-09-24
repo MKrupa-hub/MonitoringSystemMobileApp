@@ -5,14 +5,14 @@
     android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.pTemperatureFragment">
+    tools:context=".fragments.PatientFragments.pTemperatureFragment">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:hint="Temperatura"
+        android:hint="@string/p_temperature"
         android:textColorHint="#000000"
         app:boxStrokeColor="#40C19D"
         app:boxStrokeErrorColor="#40C19D"
@@ -43,7 +43,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:hint="Data"
+        android:hint="@string/Date"
         android:textColorHint="#000000"
         app:boxStrokeColor="#40C19D"
         app:boxStrokeErrorColor="#40C19D"
@@ -56,7 +56,7 @@
         app:placeholderTextColor="#000000">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textDate"
+            android:id="@+id/textDateView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#000000"
@@ -68,7 +68,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:hint="Godzina"
+        android:hint="@string/Time"
         android:textColorHint="#000000"
         app:boxStrokeColor="#40C19D"
         app:boxStrokeErrorColor="#40C19D"
@@ -82,7 +82,7 @@
         app:placeholderTextColor="#000000">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textTime"
+            android:id="@+id/textTimeView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#000000"
@@ -94,7 +94,7 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_gravity="center"
-        android:layout_marginEnd="80dp"
+        android:layout_marginEnd="70dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/circle"
         android:gravity="center"

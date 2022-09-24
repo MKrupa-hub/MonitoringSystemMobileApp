@@ -1,22 +1,20 @@
-package com.example.monitoringsystem.fragments;
+package com.example.monitoringsystem.fragments.DoctorFragments;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
 
 import com.example.monitoringsystem.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link pPressureFragment#newInstance} factory method to
+ * Use the {@link dPressureFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class pPressureFragment extends Fragment {
+public class dPressureFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,7 +25,7 @@ public class pPressureFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public pPressureFragment() {
+    public dPressureFragment() {
         // Required empty public constructor
     }
 
@@ -37,11 +35,11 @@ public class pPressureFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment pPressureFragment.
+     * @return A new instance of fragment dPressureFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static pPressureFragment newInstance(String param1, String param2) {
-        pPressureFragment fragment = new pPressureFragment();
+    public static dPressureFragment newInstance(String param1, String param2) {
+        dPressureFragment fragment = new dPressureFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -62,6 +60,6 @@ public class pPressureFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_p_pressure, container, false);
+        return inflater.inflate(R.layout.fragment_d_pressure, container, false);
     }
 }

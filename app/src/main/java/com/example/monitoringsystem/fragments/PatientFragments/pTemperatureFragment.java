@@ -1,39 +1,28 @@
-package com.example.monitoringsystem.fragments;
+package com.example.monitoringsystem.fragments.PatientFragments;
 
-import android.app.TimePickerDialog;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.monitoringsystem.PatientActivity;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+
+import com.example.monitoringsystem.Patient.PatientActivity;
+import com.example.monitoringsystem.Patient.Temperature;
 import com.example.monitoringsystem.R;
-import com.example.monitoringsystem.RegisterActivity;
-import com.example.monitoringsystem.Temperature;
-import com.example.monitoringsystem.User;
-import com.google.android.material.textfield.TextInputLayout;
+import com.example.monitoringsystem.fragments.SelectDateFragment;
+import com.example.monitoringsystem.fragments.SelectedTimeFragment;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.text.DateFormat;
-import java.util.Calendar;
-import android.app.DatePickerDialog;
-import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 public class pTemperatureFragment extends Fragment {
 
@@ -61,8 +50,8 @@ public class pTemperatureFragment extends Fragment {
         login = patientActivity.sendLoginToFragment();
 
         displayTemperature = getView().findViewById(R.id.display_temperature);
-        textDate = getView().findViewById(R.id.textDate);
-        textTime = getView().findViewById(R.id.textTime);
+        textDate = getView().findViewById(R.id.textDateView);
+        textTime = getView().findViewById(R.id.textTimeView);
         textTemperature = getView().findViewById(R.id.textTemperature);
         addButton = getView().findViewById(R.id.add_temperature);
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -114,7 +103,7 @@ public class pTemperatureFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Temperature temperature = new Temperature(login,textDate.getText().toString(),textTime.getText().toString(),Float.parseFloat(textTemperature.getText().toString()));
-                reference.child(temperature.getLogin()).setValue(temperature);
+                reference.child(temperature.getLogin()).child(String.valueOf(snapshot.getChildrenCount() + 1)).setValue(temperature);
                 Toast.makeText(getContext(), "Dodano!", Toast.LENGTH_SHORT).show();
             }
 
@@ -131,7 +120,7 @@ public class pTemperatureFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    Temperature temperature = snapshot.getValue(Temperature.class);
+                    Temperature temperature = snapshot.child(String.valueOf(snapshot.getChildrenCount())).getValue(Temperature.class);
                     displayTemperature.setText(String.valueOf(temperature.getTemperature()));
 
                 }

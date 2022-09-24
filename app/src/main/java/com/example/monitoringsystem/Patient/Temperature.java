@@ -1,11 +1,11 @@
-package com.example.monitoringsystem;
+package com.example.monitoringsystem.Patient;
 
 public class Temperature {
 
-    String login;
-    String date;
-    String time;
-    float temperature;
+    private String login;
+    private String date;
+    private String time;
+    private float temperature;
 
     public Temperature() {
 

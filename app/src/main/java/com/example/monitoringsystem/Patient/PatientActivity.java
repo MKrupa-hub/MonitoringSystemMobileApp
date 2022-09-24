@@ -1,4 +1,8 @@
-package com.example.monitoringsystem;
+package com.example.monitoringsystem.Patient;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -7,12 +11,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.Gravity;
-import android.view.View;
-import android.widget.TextView;
-
+import com.example.monitoringsystem.R;
 import com.google.android.material.navigation.NavigationView;
 
 public class PatientActivity extends AppCompatActivity {
@@ -39,7 +38,7 @@ public class PatientActivity extends AppCompatActivity {
         NavigationView navigationView = findViewById(R.id.navigationView);
         navigationView.setItemIconTintList(null);
 
-        NavController navController = Navigation.findNavController(this,R.id.navHostFragment);
+        NavController navController = Navigation.findNavController(this, R.id.navHostFragment);
         NavigationUI.setupWithNavController(navigationView,navController);
 
     }

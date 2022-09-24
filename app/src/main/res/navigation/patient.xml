@@ -3,21 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/patien"
-    app:startDestination="@id/menuProfile">
+    app:startDestination="@id/pMenuProfile">
 
     <fragment
-        android:id="@+id/menuProfile"
-        android:name="com.example.monitoringsystem.fragments.pProfileFragment"
+        android:id="@+id/pMenuProfile"
+        android:name="com.example.monitoringsystem.fragments.PatientFragments.pProfileFragment"
         android:label="fragment_p_profile"
         tools:layout="@layout/fragment_p_profile" />
     <fragment
-        android:id="@+id/menuTemperature"
-        android:name="com.example.monitoringsystem.fragments.pTemperatureFragment"
+        android:id="@+id/pMenuTemperature"
+        android:name="com.example.monitoringsystem.fragments.PatientFragments.pTemperatureFragment"
         android:label="fragment_p_temperature"
         tools:layout="@layout/fragment_p_temperature" />
     <fragment
-        android:id="@+id/menuBloodPressure"
-        android:name="com.example.monitoringsystem.fragments.pPressureFragment"
+        android:id="@+id/pMenuBloodPressure"
+        android:name="com.example.monitoringsystem.fragments.PatientFragments.pPressureFragment"
         android:label="fragment_p_pressure"
         tools:layout="@layout/fragment_p_pressure" />
 </navigation>

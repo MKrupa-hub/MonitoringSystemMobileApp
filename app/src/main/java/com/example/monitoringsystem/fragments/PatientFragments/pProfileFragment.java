@@ -1,16 +1,15 @@
-package com.example.monitoringsystem.fragments;
+package com.example.monitoringsystem.fragments.PatientFragments;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.monitoringsystem.PatientActivity;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
+import com.example.monitoringsystem.Patient.PatientActivity;
 import com.example.monitoringsystem.R;
 import com.example.monitoringsystem.User;
 import com.google.firebase.database.DataSnapshot;

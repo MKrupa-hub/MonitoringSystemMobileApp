@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/doctor"
+    app:startDestination="@id/pProfileFragment">
+
+    <fragment
+        android:id="@+id/pProfileFragment"
+        android:name="com.example.monitoringsystem.fragments.PatientFragments.pProfileFragment"
+        android:label="fragment_p_profile"
+        tools:layout="@layout/fragment_p_profile" />
+    <fragment
+        android:id="@+id/dPressureFragment2"
+        android:name="com.example.monitoringsystem.fragments.DoctorFragments.dPressureFragment"
+        android:label="fragment_d_pressure"
+        tools:layout="@layout/fragment_d_pressure" />
+    <fragment
+        android:id="@+id/dTemperatureFragment"
+        android:name="com.example.monitoringsystem.fragments.DoctorFragments.dTemperatureFragment"
+        android:label="fragment_d_temperature"
+        tools:layout="@layout/fragment_d_temperature" />
+</navigation>
