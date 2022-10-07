@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.monitoringsystem.Patient.PatientActivity;
+import com.example.monitoringsystem.Patient.PatientMainActivity;
 import com.example.monitoringsystem.R;
 import com.example.monitoringsystem.User;
 import com.google.firebase.database.DataSnapshot;
@@ -33,10 +33,10 @@ public class pProfileFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-            PatientActivity patientActivity = (PatientActivity) getActivity();
+            PatientMainActivity patientMainActivity = (PatientMainActivity) getActivity();
             TextView textView = getView().findViewById(R.id.login_display);
-            textView.setText(patientActivity.sendLoginToFragment());
-            fillData(patientActivity.sendLoginToFragment());
+            textView.setText(patientMainActivity.sendLoginToFragment());
+            fillData(patientMainActivity.sendLoginToFragment());
 
     }
 

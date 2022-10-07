@@ -14,19 +14,19 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.monitoringsystem.R;
 import com.google.android.material.navigation.NavigationView;
 
-public class PatientActivity extends AppCompatActivity {
+public class PatientMainActivity extends AppCompatActivity {
 
     private String login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_patient);
-        Intent intent = getIntent();
+        setContentView(R.layout.activity_patient_main);
 
+        Intent intent = getIntent();
         login = intent.getStringExtra("login");
 
-        DrawerLayout drawerLayout = findViewById(R.id.patientActivity);
+        DrawerLayout drawerLayout = findViewById(R.id.patientMainActivity);
 
         findViewById(R.id.imageMenu).setOnClickListener(new View.OnClickListener() {
             @Override

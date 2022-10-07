@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
-import com.example.monitoringsystem.Patient.PatientActivity;
+import com.example.monitoringsystem.Patient.PatientMainActivity;
 import com.example.monitoringsystem.Patient.Temperature;
 import com.example.monitoringsystem.R;
 import com.example.monitoringsystem.fragments.SelectDateFragment;
@@ -46,8 +46,8 @@ public class pTemperatureFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        PatientActivity patientActivity = (PatientActivity) getActivity();
-        login = patientActivity.sendLoginToFragment();
+        PatientMainActivity patientMainActivity = (PatientMainActivity) getActivity();
+        login = patientMainActivity.sendLoginToFragment();
 
         displayTemperature = getView().findViewById(R.id.display_temperature);
         textDate = getView().findViewById(R.id.textDateView);

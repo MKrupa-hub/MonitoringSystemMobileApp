@@ -37,7 +37,12 @@ public class User {
         return login;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     public long getPesel() {
         return pesel;
     }
+
 }

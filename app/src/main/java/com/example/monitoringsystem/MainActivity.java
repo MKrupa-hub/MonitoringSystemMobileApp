@@ -10,8 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.monitoringsystem.Doctor.DoctorActivity;
-import com.example.monitoringsystem.Patient.PatientActivity;
+import com.example.monitoringsystem.Doctor.DoctorMainActivity;
+import com.example.monitoringsystem.Patient.PatientMainActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                     switch (input) {
                         case 'L':
                             allert('L');
-                            doctorActivity();
+                            doctorActivity(login.getText().toString());
                             break;
                         case 'P':
                             allert('P');
@@ -108,13 +108,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void doctorActivity(){
-        Intent intent = new Intent(this, DoctorActivity.class);
+    public void doctorActivity(String login){
+        Intent intent = new Intent(this, DoctorMainActivity.class);
+        intent.putExtra("login", login);
         startActivity(intent);
     }
 
     public void patientActivity(String login){
-        Intent intent = new Intent(this, PatientActivity.class);
+        Intent intent = new Intent(this, PatientMainActivity.class);
         intent.putExtra("login", login);
         startActivity(intent);
     }

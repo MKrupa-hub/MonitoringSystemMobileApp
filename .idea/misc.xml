@@ -9,12 +9,14 @@
         <entry key="..\:/Users/mateu/AndroidStudioProjects/MonitoringSystem/app/src/main/res/layout/ac1tivity_doctor.xml" value="0.176" />
         <entry key="..\:/Users/mateu/AndroidStudioProjects/MonitoringSystem/app/src/main/res/layout/acti123vity_doctor.xml" value="0.20863616930312098" />
         <entry key="..\:/Users/mateu/AndroidStudioProjects/MonitoringSystem/app/src/main/res/layout/activity_doctor.xml" value="0.20863616930312098" />
-        <entry key="..\:/Users/mateu/AndroidStudioProjects/MonitoringSystem/app/src/main/res/layout/activity_doctor_main.xml" value="0.20863616930312098" />
+        <entry key="..\:/Users/mateu/AndroidStudioProjects/MonitoringSystem/app/src/main/res/layout/activity_doctor_main.xml" value="0.2" />
         <entry key="..\:/Users/mateu/AndroidStudioProjects/MonitoringSystem/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/mateu/AndroidStudioProjects/MonitoringSystem/app/src/main/res/layout/activity_main2.xml" value="0.1" />
         <entry key="..\:/Users/mateu/AndroidStudioProjects/MonitoringSystem/app/src/main/res/layout/activity_patient.xml" value="0.20863616930312098" />
+        <entry key="..\:/Users/mateu/AndroidStudioProjects/MonitoringSystem/app/src/main/res/layout/activity_patient_main.xml" value="0.20036264732547598" />
         <entry key="..\:/Users/mateu/AndroidStudioProjects/MonitoringSystem/app/src/main/res/layout/activity_register.xml" value="0.264" />
         <entry key="..\:/Users/mateu/AndroidStudioProjects/MonitoringSystem/app/src/main/res/layout/content_scrolling.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/mateu/AndroidStudioProjects/MonitoringSystem/app/src/main/res/layout/fragment_d_patient_profile.xml" value="0.20036264732547598" />
         <entry key="..\:/Users/mateu/AndroidStudioProjects/MonitoringSystem/app/src/main/res/layout/fragment_d_pressure.xml" value="0.20863616930312098" />
         <entry key="..\:/Users/mateu/AndroidStudioProjects/MonitoringSystem/app/src/main/res/layout/fragment_d_temperature.xml" value="0.20036264732547598" />
         <entry key="..\:/Users/mateu/AndroidStudioProjects/MonitoringSystem/app/src/main/res/layout/fragment_item.xml" value="0.20863616930312098" />

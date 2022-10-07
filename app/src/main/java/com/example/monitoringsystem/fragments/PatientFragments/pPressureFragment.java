@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
-import com.example.monitoringsystem.Patient.PatientActivity;
+import com.example.monitoringsystem.Patient.PatientMainActivity;
 import com.example.monitoringsystem.Patient.Pressure;
 import com.example.monitoringsystem.R;
 import com.example.monitoringsystem.fragments.SelectDateFragment;
@@ -36,7 +36,6 @@ public class pPressureFragment extends Fragment {
     private EditText textPulse;
     private Button load;
     private Button save;
-    private DatabaseReference mDatabase;
     private String login;
 
     @Override
@@ -50,8 +49,8 @@ public class pPressureFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        PatientActivity patientActivity = (PatientActivity) getActivity();
-        login = patientActivity.sendLoginToFragment();
+        PatientMainActivity patientMainActivity = (PatientMainActivity) getActivity();
+        login = patientMainActivity.sendLoginToFragment();
 
         textDate = getView().findViewById(R.id.textDateView);
         textTime = getView().findViewById(R.id.textTimeView);

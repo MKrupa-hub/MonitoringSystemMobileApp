@@ -1,9 +1,11 @@
 package com.example.monitoringsystem;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.InputType;
@@ -51,6 +53,8 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     public void register(View view) {
+        Button button = findViewById(R.id.button4);
+        button.setEnabled(false);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         CheckBox checkBox = findViewById(R.id.checkBox);
         EditText name = findViewById(R.id.r_name);
@@ -60,6 +64,7 @@ public class RegisterActivity extends AppCompatActivity {
         EditText pesel = findViewById(R.id.r_pesel);
         if (name.getText().toString().equals("") || surname.getText().toString().equals("") || phone.getText().toString().equals("") || password.getText().toString().equals("") || pesel.getText().toString().equals("")) {
             Toast.makeText(RegisterActivity.this, "Wszystkie pola musza byc wypelnione!", Toast.LENGTH_SHORT).show();
+            freezeButton(button);
             return;
         }
 
@@ -85,14 +90,12 @@ public class RegisterActivity extends AppCompatActivity {
                         sb.insert(0, 'L');
                         User user = new User(name.getText().toString(), surname.getText().toString(), Integer.parseInt(phone.getText().toString()), sb.toString(), password.getText().toString(), Long.parseLong(pesel.getText().toString()));
                         mDatabase.child("users").child(user.getLogin()).setValue(user);
-                        Toast.makeText(RegisterActivity.this, "Utworzono konto twój login:!" + user.getLogin(), Toast.LENGTH_SHORT).show();
+                        displayLogin(user.getLogin());
                     } else {
                         sb.insert(0, 'P');
                         User user = new User(name.getText().toString(), surname.getText().toString(), Integer.parseInt(phone.getText().toString()), sb.toString(), password.getText().toString(), Long.parseLong(pesel.getText().toString()));
                         mDatabase.child("users").child(user.getLogin()).setValue(user);
-                        for (int i = 0; i < 3; i++) {
-                            Toast.makeText(RegisterActivity.this, "Utworzono konto twój login: " + user.getLogin() + " zapamiętaj go.", Toast.LENGTH_LONG).show();
-                        }
+                        displayLogin(user.getLogin());
                     }
 
                 }
@@ -103,7 +106,29 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
         });
-
+        freezeButton(button);
     }
+
+    private void displayLogin(String login){
+        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle("Uwaga !\n");
+        alertDialog.setMessage("Utworzono konto, \ntwój login to: " + login + ".\nZapamiętaj go.");
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        alertDialog.show();
+    }
+
+
+    private void freezeButton(Button button){
+        button.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                button.setEnabled(true);
+            }
+        },1000);
+    }
+
 
 }

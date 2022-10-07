@@ -2,11 +2,10 @@
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/patientActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".Patient.PatientActivity">
+    tools:context=".Patient.PatientMainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -28,12 +27,66 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:text="@string/ptitle"
+                android:text="@string/dtitle"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textSize="22sp" />
 
         </LinearLayout>
+
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="290dp"
+            android:layout_height="471dp"
+            android:layout_marginTop="68dp"
+            android:layout_weight="1"
+            android:divider="#FF03DAC5"
+            android:dividerHeight="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.223"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/peselText" />
+
+        <EditText
+            android:id="@+id/peselText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:divider="#FF03DAC5"
+            android:ems="10"
+            android:digits="0123456789"
+            android:hint="@string/give_pesel"
+            android:inputType="number"
+            android:maxLength="11"
+            android:textColor="@color/black"
+            android:textColorHint="#D3000000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/addButton"
+            app:layout_constraintHorizontal_bias="0.384"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutToolBar"
+            app:layout_constraintVertical_bias="0.122" />
+
+        <Button
+            android:id="@+id/addButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="addPatient"
+            android:text="@string/add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.891"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutToolBar"
+            app:layout_constraintVertical_bias="0.123" />
+
+        <ImageView
+            android:id="@+id/helpImage"
+            android:layout_width="45dp"
+            android:layout_height="46dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/list"
+            app:layout_constraintTop_toTopOf="@+id/list"
+            app:srcCompat="@drawable/help" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

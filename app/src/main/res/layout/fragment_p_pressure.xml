@@ -41,8 +41,10 @@
             android:id="@+id/textS"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:digits="0123456789"
             android:imeOptions="actionDone"
-            android:inputType="numberDecimal" />
+            android:inputType="phone"
+            android:maxLength="3" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -68,8 +70,10 @@
             android:id="@+id/textR"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:digits="0123456789"
             android:imeOptions="actionDone"
-            android:inputType="numberDecimal" />
+            android:inputType="phone"
+            android:maxLength="3" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -92,8 +96,10 @@
             android:id="@+id/textPulse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:digits="0123456789"
             android:imeOptions="actionDone"
-            android:inputType="numberDecimal" />
+            android:inputType="phone"
+            android:maxLength="3" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <View

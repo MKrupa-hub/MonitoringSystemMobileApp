@@ -22,7 +22,7 @@
             android:label="@string/title_activity_register"
             android:theme="@style/Theme.MonitoringSystem.NoActionBar" />
         <activity
-            android:name=".Patient.PatientActivity"
+            android:name=".Patient.PatientMainActivity"
             android:exported="false" />
         <activity
             android:name=".Doctor.DoctorActivity"
