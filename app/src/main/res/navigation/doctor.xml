@@ -12,12 +12,12 @@
         tools:layout="@layout/fragment_p_profile" />
     <fragment
         android:id="@+id/dMenuTemperature"
-        android:name="com.example.monitoringsystem.fragments.DoctorFragments.dPressureFragment"
+        android:name="com.example.monitoringsystem.fragments.DoctorFragments.dTemperatureFragment"
         android:label="fragment_d_pressure"
         tools:layout="@layout/fragment_d_pressure" />
     <fragment
         android:id="@+id/dMenuBloodPressure"
-        android:name="com.example.monitoringsystem.fragments.DoctorFragments.dTemperatureFragment"
+        android:name="com.example.monitoringsystem.fragments.DoctorFragments.dPressureFragment"
         android:label="fragment_d_temperature"
         tools:layout="@layout/fragment_d_temperature" />
 </navigation>

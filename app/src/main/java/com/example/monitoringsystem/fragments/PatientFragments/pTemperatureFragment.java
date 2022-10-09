@@ -1,6 +1,7 @@
 package com.example.monitoringsystem.fragments.PatientFragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 
 public class pTemperatureFragment extends Fragment {
 
@@ -98,13 +104,17 @@ public class pTemperatureFragment extends Fragment {
             textTemperature.setText("");
             return;
         }
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("temperatures");
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+
+        mDatabase = FirebaseDatabase.getInstance().getReference("temperatures");
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Temperature temperature = new Temperature(login,textDate.getText().toString(),textTime.getText().toString(),Float.parseFloat(textTemperature.getText().toString()));
-                reference.child(temperature.getLogin()).child(String.valueOf(snapshot.child(temperature.getLogin()).getChildrenCount() + 1)).setValue(temperature);
-                Toast.makeText(getContext(), "Dodano!", Toast.LENGTH_SHORT).show();
+                String[] date = textDate.getText().toString().split("/");
+                String[] time = textTime.getText().toString().split(":");
+                Timestamp timestamp = Timestamp.valueOf(date[2] + "-" + date[1] + "-" + date[0] + " " + time[0] + ":" + time[1] + ":00.00");
+                Temperature temperature = new Temperature(login,Float.parseFloat(textTemperature.getText().toString()),timestamp.getTime());
+                mDatabase.child(temperature.getLogin()).child(String.valueOf(snapshot.child(temperature.getLogin()).getChildrenCount() + 1)).setValue(temperature);
+
             }
 
             @Override
@@ -112,11 +122,14 @@ public class pTemperatureFragment extends Fragment {
 
             }
         });
+
+
     }
 
     private void getLastTemperature(){
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("temperatures").child(login);
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+
+        mDatabase = FirebaseDatabase.getInstance().getReference("temperatures").child(login);
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {

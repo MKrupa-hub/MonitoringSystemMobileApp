@@ -116,7 +116,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text23"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-        android:layout_width="103dp"
+        android:layout_width="90dp"
         android:layout_height="50dp"
         android:hint="@string/Time"
         android:textAlignment="textStart"
@@ -141,7 +141,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text32"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-        android:layout_width="103dp"
+        android:layout_width="110dp"
         android:layout_height="50dp"
         android:hint="@string/Date"
         android:textAlignment="textStart"

@@ -23,6 +23,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.Timestamp;
+import java.util.Calendar;
+
 /**
  * A simple {@link Fragment} subclass.
 
@@ -37,6 +40,7 @@ public class pPressureFragment extends Fragment {
     private Button load;
     private Button save;
     private String login;
+    private DatabaseReference mDatabase;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -101,14 +105,16 @@ public class pPressureFragment extends Fragment {
             Toast.makeText(getContext(), "Wszystkie pola musza byc wypelnione!", Toast.LENGTH_SHORT).show();
             return;
         }
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("pressures");
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase = FirebaseDatabase.getInstance().getReference("pressures");
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Pressure pressure = new Pressure(login,textDate.getText().toString(),
-                        textTime.getText().toString(),Integer.parseInt(textS.getText().toString()),
-                        Integer.parseInt(textR.getText().toString()),Integer.parseInt(textPulse.getText().toString()));
-                reference.child(pressure.getLogin()).child(String.valueOf(snapshot.child(pressure.getLogin()).getChildrenCount() + 1)).setValue(pressure);
+                String[] date = textDate.getText().toString().split("/");
+                String[] time = textTime.getText().toString().split(":");
+                Timestamp timestamp = Timestamp.valueOf(date[2] + "-" + date[1] + "-" + date[0] + " " + time[0] + ":" + time[1] + ":00.00");
+                Pressure pressure = new Pressure(login,Integer.parseInt(textS.getText().toString()),
+                        Integer.parseInt(textR.getText().toString()),Integer.parseInt(textPulse.getText().toString()),timestamp.getTime());
+                mDatabase.child(pressure.getLogin()).child(String.valueOf(snapshot.child(pressure.getLogin()).getChildrenCount() + 1)).setValue(pressure);
                 Toast.makeText(getContext(), "Dodano!", Toast.LENGTH_SHORT).show();
             }
 
@@ -121,14 +127,14 @@ public class pPressureFragment extends Fragment {
 
 
     private void getLastPressure(){
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("pressures").child(login);
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase = FirebaseDatabase.getInstance().getReference("pressures").child(login);
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     Pressure pressure = snapshot.child(String.valueOf(snapshot.getChildrenCount())).getValue(Pressure.class);
-                    textDate.setText(String.valueOf(pressure.getDate()));
-                    textTime.setText(String.valueOf(pressure.getTime()));
+                    textDate.setText(getDate(pressure.getTimestamp()));
+                    textTime.setText(getTime(pressure.getTimestamp()));
                     textS.setText(String.valueOf(pressure.getPressureS()));
                     textR.setText(String.valueOf(pressure.getPressureR()));
                     textPulse.setText(String.valueOf(pressure.getPulse()));
@@ -140,6 +146,17 @@ public class pPressureFragment extends Fragment {
 
             }
         });
+    }
+
+    private String getDate(long timestampValue){
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(timestampValue);
+        return cal.get(Calendar.DATE)+ "/" + (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.YEAR);
+    }
+
+    private String getTime(long timestampValue){
+        Timestamp timestamp = new Timestamp(timestampValue);
+        return timestamp.getHours() + ":" + timestamp.getMinutes();
     }
 
     private void makeTextNotEditable(EditText editText){

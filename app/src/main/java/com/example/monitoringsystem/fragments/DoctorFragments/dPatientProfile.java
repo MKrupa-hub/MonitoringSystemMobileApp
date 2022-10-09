@@ -34,19 +34,19 @@ public class dPatientProfile extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        DoctorActivity doctorActivity  = (DoctorActivity) getActivity();
+        DoctorActivity doctorActivity = (DoctorActivity) getActivity();
         fillData(doctorActivity.sendPeselToFragment());
 
     }
 
-    void fillData(String pesel){
+    void fillData(String pesel) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    if(snapshot.child("pesel").getValue(Long.class) == Long.parseLong(pesel)){
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    if (snapshot.child("pesel").getValue(Long.class) == Long.parseLong(pesel)) {
                         User user = snapshot.getValue(User.class);
                         TextView textViewLogin = getView().findViewById(R.id.login_display);
                         TextView textViewName = getView().findViewById(R.id.name_display);
@@ -61,9 +61,6 @@ public class dPatientProfile extends Fragment {
                         textViewPesel.setText(String.valueOf(user.getPesel()));
                     }
                 }
-
-
-
             }
 
             @Override

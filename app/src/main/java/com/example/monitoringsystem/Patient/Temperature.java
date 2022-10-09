@@ -3,34 +3,28 @@ package com.example.monitoringsystem.Patient;
 public class Temperature {
 
     private String login;
-    private String date;
-    private String time;
     private float temperature;
+    private long timestamp;
 
     public Temperature() {
 
     }
 
-    public Temperature(String login, String date, String time, float temperature) {
+    public Temperature(String login, float temperature, long timestamp) {
         this.login = login;
-        this.date = date;
-        this.time = time;
         this.temperature = temperature;
+        this.timestamp = timestamp;
     }
 
     public String getLogin() {
         return login;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
     public float getTemperature() {
         return temperature;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
     }
 }
