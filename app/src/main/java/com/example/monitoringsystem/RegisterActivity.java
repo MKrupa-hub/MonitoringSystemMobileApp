@@ -127,7 +127,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void run() {
                 button.setEnabled(true);
             }
-        },1000);
+        },500);
     }
 
 

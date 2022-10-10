@@ -16,7 +16,7 @@ import com.google.android.material.navigation.NavigationView;
 
 public class DoctorActivity extends AppCompatActivity {
 
-    private String pesel;
+    private String login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +24,7 @@ public class DoctorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_doctor);
 
         Intent intent = getIntent();
-        pesel = intent.getStringExtra("pesel");
+        login = intent.getStringExtra("login");
 
         DrawerLayout drawerLayout = findViewById(R.id.doctorMainActivity);
 
@@ -43,7 +43,7 @@ public class DoctorActivity extends AppCompatActivity {
 
     }
 
-    public String sendPeselToFragment(){
-        return pesel;
+    public String sendLoginToFragment(){
+        return login;
     }
 }

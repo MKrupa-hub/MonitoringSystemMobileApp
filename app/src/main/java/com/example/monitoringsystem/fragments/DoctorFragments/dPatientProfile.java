@@ -24,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
  */
 public class dPatientProfile extends Fragment {
 
+    private String login;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,19 +36,19 @@ public class dPatientProfile extends Fragment {
     public void onStart() {
         super.onStart();
         DoctorActivity doctorActivity = (DoctorActivity) getActivity();
-        fillData(doctorActivity.sendPeselToFragment());
-
+        fillData(doctorActivity.sendLoginToFragment());
     }
 
-    void fillData(String pesel) {
+
+    void fillData(String login) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    if (snapshot.child("pesel").getValue(Long.class) == Long.parseLong(pesel)) {
-                        User user = snapshot.getValue(User.class);
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    if (dataSnapshot.child("login").getValue(String.class).equals(login)) {
+                        User user = dataSnapshot.getValue(User.class);
                         TextView textViewLogin = getView().findViewById(R.id.login_display);
                         TextView textViewName = getView().findViewById(R.id.name_display);
                         TextView textViewSurname = getView().findViewById(R.id.surname_display);

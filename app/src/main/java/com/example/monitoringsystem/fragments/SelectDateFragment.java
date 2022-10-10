@@ -15,6 +15,12 @@ import java.util.Calendar;
 
 public class SelectDateFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
+    private int field;
+
+    public SelectDateFragment(int field) {
+        this.field = field;
+    }
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final Calendar calendar = Calendar.getInstance();
@@ -27,7 +33,7 @@ public class SelectDateFragment extends DialogFragment implements DatePickerDial
     @Override
     public void onDateSet(DatePicker view, int y, int m, int d) {
         Fragment fragment = getParentFragment();
-        EditText textView = fragment.getView().findViewById(R.id.textDateView);
+        EditText textView = fragment.getView().findViewById(field);
         String date = d+"/"+(m+1)+"/"+y;
         textView.setText(date);
     }

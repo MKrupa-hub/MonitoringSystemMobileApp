@@ -75,7 +75,6 @@ public class DoctorMainActivity extends AppCompatActivity {
             }
         });
 
-        editText.requestFocus();
     }
 
     private void helpInfo(){
@@ -201,9 +200,9 @@ public class DoctorMainActivity extends AppCompatActivity {
 
     }
 
-    private void openPatientInfo(int index) {
+    private void openPatientInfo(String login) {
         Intent intent = new Intent(this, DoctorActivity.class);
-        intent.putExtra("pesel", patiensPesel.get(index).getPesel());
+        intent.putExtra("login", login);
         startActivity(intent);
     }
 
@@ -214,7 +213,9 @@ public class DoctorMainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    openPatientInfo(index);
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        openPatientInfo(dataSnapshot.child("login").getValue(String.class));
+                    }
                 } else {
                     Toast.makeText(DoctorMainActivity.this, "Konto z peselem: " + patiensPesel.get(index).getPesel() + " jeszcze nie powstało", Toast.LENGTH_LONG).show();
                 }

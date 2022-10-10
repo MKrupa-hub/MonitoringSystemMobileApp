@@ -70,7 +70,7 @@ public class pTemperatureFragment extends Fragment {
         textDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFragment dateFragment = new SelectDateFragment();
+                DialogFragment dateFragment = new SelectDateFragment(R.id.textDateView);
                 dateFragment.show(getFragmentManager(), "DatePicker");
             }
         });
