@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.monitoringsystem.Patient.Pressure;
 import com.example.monitoringsystem.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,7 +32,7 @@ public class DoctorMainActivity extends AppCompatActivity {
     private EditText editText;
     private ListView listView;
     private ImageView helpImage;
-    private List<Patient> patiensPesel = new ArrayList<>();
+    private List<Patient> patientsPesel = new ArrayList<>();
     private ArrayAdapter<String> arrayAdapter;
     private DatabaseReference reference;
 
@@ -46,7 +44,7 @@ public class DoctorMainActivity extends AppCompatActivity {
         editText = findViewById(R.id.peselText);
         listView = findViewById(R.id.list);
         helpImage = findViewById(R.id.helpImage);
-        arrayAdapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, patiensPesel);
+        arrayAdapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, patientsPesel);
         listView.setAdapter(arrayAdapter);
 
         Intent intent = getIntent();
@@ -94,16 +92,16 @@ public class DoctorMainActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder.setTitle("Ostrzeżenie");
-        builder.setMessage("Czy na pewno chcesz usunąć pacjenta z peselem: "+patiensPesel.get(index).getPesel()+"?");
+        builder.setMessage("Czy na pewno chcesz usunąć pacjenta z peselem: "+ patientsPesel.get(index).getPesel()+"?");
 
-        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Usuń", new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int which) {
                 removePatient(index);
                 dialog.dismiss();
             }
         });
-        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Nie", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -114,7 +112,7 @@ public class DoctorMainActivity extends AppCompatActivity {
         alert.show();
     }
     private void removePatient(int index) {
-        patiensPesel.remove(index);
+        patientsPesel.remove(index);
         reference = FirebaseDatabase.getInstance().getReference("doctorsPatients").child(login);
         reference.removeValue();
         refactorPatients();
@@ -128,7 +126,7 @@ public class DoctorMainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                     int i=1;
-                    for (Patient patient : patiensPesel ) {
+                    for (Patient patient : patientsPesel) {
                         reference.child(String.valueOf(i)).setValue(patient);
                         i++;
                 }
@@ -148,7 +146,7 @@ public class DoctorMainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        patiensPesel.add(dataSnapshot.getValue(Patient.class));
+                        patientsPesel.add(dataSnapshot.getValue(Patient.class));
                         listView.setAdapter(arrayAdapter);
                     }
                 }
@@ -174,12 +172,12 @@ public class DoctorMainActivity extends AppCompatActivity {
     }
 
     private void addItem(String item) {
-        if (patiensPesel.contains(new Patient(item))) {
+        if (patientsPesel.contains(new Patient(item))) {
             Toast.makeText(DoctorMainActivity.this, "Konto z peselem: " + item + " pesel jest już dodane!", Toast.LENGTH_LONG).show();
             return;
         }
         Patient patient = new Patient(item);
-        patiensPesel.add(patient);
+        patientsPesel.add(patient);
         assignPatientToDoctor(patient);
         listView.setAdapter(arrayAdapter);
     }
@@ -208,7 +206,7 @@ public class DoctorMainActivity extends AppCompatActivity {
 
     private void checkIfPatienExists(int index) {
         reference = FirebaseDatabase.getInstance().getReference("users");
-        Query checkUser = reference.orderByChild("pesel").equalTo(Double.parseDouble(patiensPesel.get(index).getPesel()));
+        Query checkUser = reference.orderByChild("pesel").equalTo(Double.parseDouble(patientsPesel.get(index).getPesel()));
         checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -217,7 +215,7 @@ public class DoctorMainActivity extends AppCompatActivity {
                         openPatientInfo(dataSnapshot.child("login").getValue(String.class));
                     }
                 } else {
-                    Toast.makeText(DoctorMainActivity.this, "Konto z peselem: " + patiensPesel.get(index).getPesel() + " jeszcze nie powstało", Toast.LENGTH_LONG).show();
+                    Toast.makeText(DoctorMainActivity.this, "Konto z peselem: " + patientsPesel.get(index).getPesel() + " jeszcze nie powstało", Toast.LENGTH_LONG).show();
                 }
             }
 

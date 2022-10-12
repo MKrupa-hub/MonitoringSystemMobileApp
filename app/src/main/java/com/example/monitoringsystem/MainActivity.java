@@ -22,15 +22,16 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText login;
-    EditText password;
+    private EditText login;
+    private EditText password;
+    private Button logInButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button button_login = (Button) findViewById(R.id.log_in);
+        Button button_login = (Button) findViewById(R.id.logInButton);
         button_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     public void log_in(View view) {
         login = findViewById(R.id.login);
         password = findViewById(R.id.password);
+        logInButton = findViewById(R.id.logInButton);
+        logInButton.setEnabled(false);
         if(password.getText().toString().equals("") || login.getText().toString().equals("")){
             allert('B');
             return;
@@ -64,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         case 'P':
                             allert('P');
-                            patientActivity(login.getText().toString());
+                            patientActivity(login.getText().toString());;
                             break;
                         }
                     }
@@ -80,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 allert('N');
-
             }
         });
     }
@@ -99,13 +101,14 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this,"Niepoprawny login!",Toast.LENGTH_SHORT).show();
                 break;
             case 'H':
-                Toast.makeText(MainActivity.this,"Niepoprawny hasło!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this,"Niepoprawne hasło!",Toast.LENGTH_SHORT).show();
                 break;
             case 'B':
                 Toast.makeText(MainActivity.this,"Login i hasło nie mogą być puste!",Toast.LENGTH_SHORT).show();
                 break;
 
         }
+        freezeButton();
     }
 
     public void doctorActivity(String login){
@@ -124,6 +127,15 @@ public class MainActivity extends AppCompatActivity {
     public void registerActivity(View view){
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
+    }
+
+    private void freezeButton(){
+        logInButton.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                logInButton.setEnabled(true);
+            }
+        },500);
     }
 
 }

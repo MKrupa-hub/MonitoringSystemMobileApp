@@ -16,8 +16,10 @@
         <entry key="..\:/Users/mateu/AndroidStudioProjects/MonitoringSystem/app/src/main/res/layout/activity_patient_main.xml" value="0.20036264732547598" />
         <entry key="..\:/Users/mateu/AndroidStudioProjects/MonitoringSystem/app/src/main/res/layout/activity_register.xml" value="0.264" />
         <entry key="..\:/Users/mateu/AndroidStudioProjects/MonitoringSystem/app/src/main/res/layout/content_scrolling.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/mateu/AndroidStudioProjects/MonitoringSystem/app/src/main/res/layout/custom_marker_view.xml" value="0.2056434373663959" />
+        <entry key="..\:/Users/mateu/AndroidStudioProjects/MonitoringSystem/app/src/main/res/layout/custom_marker_view_layout.xml" value="0.20478837109876016" />
         <entry key="..\:/Users/mateu/AndroidStudioProjects/MonitoringSystem/app/src/main/res/layout/fragment_d_patient_profile.xml" value="0.20036264732547598" />
-        <entry key="..\:/Users/mateu/AndroidStudioProjects/MonitoringSystem/app/src/main/res/layout/fragment_d_pressure.xml" value="0.20863616930312098" />
+        <entry key="..\:/Users/mateu/AndroidStudioProjects/MonitoringSystem/app/src/main/res/layout/fragment_d_pressure.xml" value="0.25" />
         <entry key="..\:/Users/mateu/AndroidStudioProjects/MonitoringSystem/app/src/main/res/layout/fragment_d_temperature.xml" value="0.20036264732547598" />
         <entry key="..\:/Users/mateu/AndroidStudioProjects/MonitoringSystem/app/src/main/res/layout/fragment_item.xml" value="0.20863616930312098" />
         <entry key="..\:/Users/mateu/AndroidStudioProjects/MonitoringSystem/app/src/main/res/layout/fragment_item_list.xml" value="0.2391304347826087" />

@@ -7,21 +7,34 @@
     android:layout_height="match_parent"
     tools:context=".fragments.DoctorFragments.dPressureFragment">
 
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/customRangeDateChart"
+        android:layout_width="330dp"
+        android:layout_height="210dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"
+        android:elevation="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.533"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout4" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout3"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="150dp"
         android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:hint="@string/Date"
         android:textColorHint="#000000"
         app:boxStrokeColor="#40C19D"
         app:boxStrokeErrorColor="#40C19D"
         app:helperTextTextColor="#000000"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textInputLayout4"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.659"
+        app:layout_constraintTop_toBottomOf="@+id/oneDayChart"
         app:placeholderTextColor="#000000">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -32,21 +45,31 @@
             android:textColorHint="#757575" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/oneDayChart"
+        android:layout_width="330dp"
+        android:layout_height="210dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"
+        android:elevation="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout5" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout4"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
         android:hint="@string/Date"
         android:textColorHint="#000000"
         app:boxStrokeColor="#40C19D"
         app:boxStrokeErrorColor="#40C19D"
         app:helperTextTextColor="#000000"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.659"
+        app:layout_constraintTop_toBottomOf="@+id/oneDayChart"
         app:placeholderTextColor="#000000">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -62,6 +85,8 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="150dp"
         android:layout_height="50dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
         android:hint="@string/Date"
         android:textColorHint="#000000"
         app:boxStrokeColor="#40C19D"
@@ -69,10 +94,10 @@
         app:helperTextTextColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.138"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.057"
+        app:layout_constraintVertical_bias="0.0"
         app:placeholderTextColor="#000000">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -82,4 +107,5 @@
             android:textColor="#000000"
             android:textColorHint="#757575" />
     </com.google.android.material.textfield.TextInputLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
