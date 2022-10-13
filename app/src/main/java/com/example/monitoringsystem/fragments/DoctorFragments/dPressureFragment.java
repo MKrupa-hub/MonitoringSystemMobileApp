@@ -1,14 +1,15 @@
 package com.example.monitoringsystem.fragments.DoctorFragments;
 
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -31,6 +32,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -49,6 +51,9 @@ public class dPressureFragment extends Fragment {
     private DatabaseReference mDatabase;
     private LineChart oneDayLineChart;
     private LineChart customRangeLineChart;
+    private Spinner spinner;
+    private String typeOfMeasurement;
+    private static final String[] paths = {"Skurczowe", "Rozkurczowe", "Puls"};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,9 +72,43 @@ public class dPressureFragment extends Fragment {
         oneDayLineChart = getView().findViewById(R.id.oneDayChart);
         customRangeLineChart = getView().findViewById(R.id.customRangeDateChart);
         oneDayLineChart.setNoDataText("Brak danych!\nWybierz date żeby zobaczyć pomiary");
+        customRangeLineChart.setNoDataText("Brak danych!\nWybierz date żeby zobaczyć pomiary");
         makeTextNotEditable(oneDayText);
         makeTextNotEditable(startDaytext);
         makeTextNotEditable(endDaytext);
+        spinner = getView().findViewById(R.id.spinner);
+        spinner.getBackground().setColorFilter(Color.parseColor("#40C19D"), PorterDuff.Mode.SRC_ATOP);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),
+                android.R.layout.simple_spinner_item,paths);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setSelection(0);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                switch (position) {
+                    case 0:
+                        typeOfMeasurement = "pressureS";
+                        break;
+                    case 1:
+                        typeOfMeasurement = "pressureR";
+                        break;
+                    case 2:
+                        typeOfMeasurement = "pulse";
+                        break;
+                }
+                loadRangeMeasurement(startDaytext.getText().toString(), endDaytext.getText().toString());
+                loadOneDayMeasurement(oneDayText.getText().toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        setUpDates();
 
         oneDayText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,8 +141,17 @@ public class dPressureFragment extends Fragment {
 
     }
 
-    private void checkIfDataIsPicked(){
-        if(!startDaytext.getText().toString().equals("") && !endDaytext.getText().toString().equals("")){
+    private void setUpDates() {
+        Calendar calendar = Calendar.getInstance();
+        oneDayText.setText(calendar.get(Calendar.DATE) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.YEAR));
+        startDaytext.setText(calendar.get(Calendar.DATE) - 5 + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.YEAR));
+        endDaytext.setText(calendar.get(Calendar.DATE) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.YEAR));
+        loadRangeMeasurement(startDaytext.getText().toString(), endDaytext.getText().toString());
+        loadOneDayMeasurement(oneDayText.getText().toString());
+    }
+
+    private void checkIfDataIsPicked() {
+        if (!startDaytext.getText().toString().equals("") && !endDaytext.getText().toString().equals("")) {
             startDaytext.setText("");
             endDaytext.setText("");
         }
@@ -111,7 +159,7 @@ public class dPressureFragment extends Fragment {
 
     private void checkIfRangeIsPicked() {
 
-        if(!startDaytext.getText().toString().equals("") || !endDaytext.getText().toString().equals("")) {
+        if (!startDaytext.getText().toString().equals("") || !endDaytext.getText().toString().equals("")) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -158,7 +206,7 @@ public class dPressureFragment extends Fragment {
                     List<Entry> entryList = new ArrayList<>();
                     for (DataSnapshot s : snapshot.getChildren()) {
                         pressures.add(s.getValue(Pressure.class));
-                        entryList.add(new Entry(s.getValue(Pressure.class).getTimestamp(), s.getValue(Pressure.class).getPressureS()));
+                        entryList.add(loadDataAccordingToType(s,entryList));
                     }
                     displayCustomRangeMeasurement(entryList);
                 }
@@ -174,7 +222,17 @@ public class dPressureFragment extends Fragment {
 
     }
 
-    private Calendar formatDate(String date){
+    private Entry loadDataAccordingToType(DataSnapshot s, List<Entry> entryList ){
+        if(typeOfMeasurement.equals("pressureS")){
+            return new Entry(s.getValue(Pressure.class).getTimestamp(), s.getValue(Pressure.class).getPressureS());
+        }else if(typeOfMeasurement.equals("pressureR")){
+            return new Entry(s.getValue(Pressure.class).getTimestamp(), s.getValue(Pressure.class).getPressureR());
+        }else{
+            return new Entry(s.getValue(Pressure.class).getTimestamp(), s.getValue(Pressure.class).getPulse());
+        }
+    }
+
+    private Calendar formatDate(String date) {
         String[] limiter = date.split("/");
         Calendar calendar = Calendar.getInstance();
         calendar.set(Integer.valueOf(limiter[2]), Integer.valueOf(limiter[1]) - 1, Integer.valueOf(limiter[0]));
@@ -191,7 +249,7 @@ public class dPressureFragment extends Fragment {
                     List<Entry> entryList = new ArrayList<>();
                     for (DataSnapshot s : snapshot.getChildren()) {
                         pressures.add(s.getValue(Pressure.class));
-                        entryList.add(new Entry(s.getValue(Pressure.class).getTimestamp(), s.getValue(Pressure.class).getPressureS()));
+                        entryList.add(loadDataAccordingToType(s,entryList));
                     }
                     displayOneDayMeasurement(entryList);
                 }
@@ -207,9 +265,10 @@ public class dPressureFragment extends Fragment {
 
     }
 
-    private void displayCustomRangeMeasurement(List<Entry> entryList){
+    private void displayCustomRangeMeasurement(List<Entry> entryList) {
         LineDataSet lineDataSet = new LineDataSet(entryList, "");
         lineDataSet = prepareLineDataSet(lineDataSet);
+        lineDataSet = estimateColorValue(lineDataSet);
         LineData lineData = new LineData(lineDataSet);
         customRangeLineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
         customRangeLineChart.getXAxis().setValueFormatter(new ValueFormatter() {
@@ -218,22 +277,52 @@ public class dPressureFragment extends Fragment {
                 return new SimpleDateFormat("dd-MM").format(value);
             }
         });
-        customRangeLineChart.getDescription().setText("Średnio:" + calcuteAvarage(entryList));
+        customRangeLineChart.getDescription().setText("Średnio: " + calcuteAvarage(entryList));
         customRangeLineChart.getDescription().setTextSize(13);
+        customRangeLineChart.setScaleYEnabled(false);
         customRangeLineChart.getLegend().setEnabled(false);
         customRangeLineChart.setData(lineData);
         customRangeLineChart.invalidate();
     }
 
-    private LineDataSet prepareLineDataSet(LineDataSet lineDataSet){
+    private LineDataSet estimateColorValue(LineDataSet lineDataSet) {
+        ArrayList<Integer> colors = new ArrayList<Integer>();
+        for (Entry entry : lineDataSet.getValues()) {
+            if(typeOfMeasurement.equals("pressureS")){
+                if (entry.getY() <= 119)
+                    colors.add(Color.BLUE);
+                else if (entry.getY() >= 120 && entry.getY() <= 139)
+                    colors.add(Color.GREEN);
+                else if (entry.getY() >= 140)
+                    colors.add(Color.RED);
+            }else if(typeOfMeasurement.equals("pressureR")){
+                if (entry.getY() <= 79)
+                    colors.add(Color.BLUE);
+                else if (entry.getY() >= 80 && entry.getY() <= 89)
+                    colors.add(Color.GREEN);
+                else if (entry.getY() >= 90)
+                    colors.add(Color.RED);
+            }else{
+                if (entry.getY() <= 59)
+                    colors.add(Color.BLUE);
+                else if (entry.getY() >= 60 && entry.getY() <= 100)
+                    colors.add(Color.GREEN);
+                else if (entry.getY() >= 101)
+                    colors.add(Color.RED);
+            }
+        }
+        lineDataSet.setCircleColors(colors);
+        lineDataSet.setColor(Color.parseColor("#40C19D"));
+        return lineDataSet;
+    }
+
+    private LineDataSet prepareLineDataSet(LineDataSet lineDataSet) {
         lineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
         lineDataSet.setLineWidth(2);
-        lineDataSet.setColor(Color.parseColor("#40C19D"));
         lineDataSet.setCircleRadius(6);
         lineDataSet.setCircleHoleRadius(3);
         lineDataSet.setDrawCircles(true);
-        lineDataSet.setCircleColor(Color.BLACK);
-        lineDataSet.setHighLightColor(Color.parseColor("#6ADDBD"));
+        lineDataSet.setHighlightEnabled(false);
         lineDataSet.setValueTextSize(12);
         lineDataSet.setValueTextColor(Color.DKGRAY);
         lineDataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
@@ -243,6 +332,7 @@ public class dPressureFragment extends Fragment {
     private void displayOneDayMeasurement(List<Entry> entryList) {
         LineDataSet lineDataSet = new LineDataSet(entryList, "");
         lineDataSet = prepareLineDataSet(lineDataSet);
+        lineDataSet = estimateColorValue(lineDataSet);
         LineData lineData = new LineData(lineDataSet);
         oneDayLineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
         oneDayLineChart.getXAxis().setValueFormatter(new ValueFormatter() {
@@ -251,19 +341,20 @@ public class dPressureFragment extends Fragment {
                 return new SimpleDateFormat("H:mm").format(value);
             }
         });
-        oneDayLineChart.getDescription().setText("Średnio:" + calcuteAvarage(entryList));
+        oneDayLineChart.getDescription().setText("Średnio: " + calcuteAvarage(entryList));
         oneDayLineChart.getDescription().setTextSize(13);
+        oneDayLineChart.setScaleYEnabled(false);
         oneDayLineChart.getLegend().setEnabled(false);
         oneDayLineChart.setData(lineData);
         oneDayLineChart.invalidate();
     }
 
-    private float calcuteAvarage(List<Entry> entryList) {
+    private String calcuteAvarage(List<Entry> entryList) {
         float sum = 0;
         for (Entry entry : entryList) {
             sum += entry.getY();
         }
-        return sum / entryList.size();
+        return new DecimalFormat("0.00").format(Double.valueOf(sum / entryList.size()));
     }
 
 
