@@ -66,17 +66,17 @@ public class dPressureFragment extends Fragment {
         super.onStart();
         DoctorActivity doctorActivity = (DoctorActivity) getActivity();
         login = doctorActivity.sendLoginToFragment();
-        startDaytext = getView().findViewById(R.id.textStartDate);
-        endDaytext = getView().findViewById(R.id.textEndDate);
-        oneDayText = getView().findViewById(R.id.textOneDay);
-        oneDayLineChart = getView().findViewById(R.id.oneDayChart);
-        customRangeLineChart = getView().findViewById(R.id.customRangeDateChart);
+        startDaytext = getView().findViewById(R.id.pTextStartDate);
+        endDaytext = getView().findViewById(R.id.pTextEndDate);
+        oneDayText = getView().findViewById(R.id.pTextOneDay);
+        oneDayLineChart = getView().findViewById(R.id.pOneDayChart);
+        customRangeLineChart = getView().findViewById(R.id.pCustomRangeDateChart);
         oneDayLineChart.setNoDataText("Brak danych!\nWybierz date żeby zobaczyć pomiary");
         customRangeLineChart.setNoDataText("Brak danych!\nWybierz date żeby zobaczyć pomiary");
         makeTextNotEditable(oneDayText);
         makeTextNotEditable(startDaytext);
         makeTextNotEditable(endDaytext);
-        spinner = getView().findViewById(R.id.spinner);
+        spinner = getView().findViewById(R.id.pSpinner);
         spinner.getBackground().setColorFilter(Color.parseColor("#40C19D"), PorterDuff.Mode.SRC_ATOP);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),
                 android.R.layout.simple_spinner_item,paths);
@@ -114,8 +114,8 @@ public class dPressureFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 oneDayText.setText("");
-                DialogFragment dateFragment = new SelectDateFragment(R.id.textOneDay);
-                dateFragment.show(getFragmentManager(), "DatePicker");
+                DialogFragment dateFragment = new SelectDateFragment(R.id.pTextOneDay);
+                dateFragment.show(getChildFragmentManager(), "DatePicker");
                 checkIfOneDayIsPicked();
             }
         });
@@ -124,8 +124,8 @@ public class dPressureFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 checkIfDataIsPicked();
-                DialogFragment dateFragment = new SelectDateFragment(R.id.textStartDate);
-                dateFragment.show(getFragmentManager(), "DatePicker");
+                DialogFragment dateFragment = new SelectDateFragment(R.id.pTextStartDate);
+                dateFragment.show(getChildFragmentManager(), "DatePicker");
                 checkIfRangeIsPicked();
             }
         });
@@ -133,8 +133,8 @@ public class dPressureFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 checkIfDataIsPicked();
-                DialogFragment dateFragment = new SelectDateFragment(R.id.textEndDate);
-                dateFragment.show(getFragmentManager(), "DatePicker");
+                DialogFragment dateFragment = new SelectDateFragment(R.id.pTextEndDate);
+                dateFragment.show(getChildFragmentManager(), "DatePicker");
                 checkIfRangeIsPicked();
             }
         });
@@ -265,24 +265,70 @@ public class dPressureFragment extends Fragment {
 
     }
 
-    private void displayCustomRangeMeasurement(List<Entry> entryList) {
+    private void displayOneDayMeasurement(List<Entry> entryList) {
+
+        oneDayLineChart.getXAxis().setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return new SimpleDateFormat("HH:mm").format(value);
+            }
+        });
+        oneDayLineChart = setMinAndMaxXValuesOneDay(oneDayLineChart);
+        prepareChart(oneDayLineChart, setUpLineData(entryList), entryList).invalidate();
+    }
+
+    private LineChart prepareChart(LineChart lineChart, LineData lineData, List<Entry> entryList){
+        lineData.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return new DecimalFormat("0").format(Double.valueOf(value));
+            }
+        });
+        lineChart.getAxisLeft().setAxisLineColor(Color.TRANSPARENT);
+        lineChart.getAxisRight().setAxisLineColor(Color.TRANSPARENT);
+        lineChart.getXAxis().setDrawGridLines(false);
+        lineChart.getDescription().setText("Średnio: " + calcuteAvarage(entryList));
+        lineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        lineChart.getDescription().setTextSize(13);
+        lineChart.setScaleYEnabled(false);
+        lineChart.getLegend().setEnabled(false);
+        lineChart.setData(lineData);
+        return lineChart;
+    }
+
+    private LineData setUpLineData(List<Entry> entryList){
         LineDataSet lineDataSet = new LineDataSet(entryList, "");
         lineDataSet = prepareLineDataSet(lineDataSet);
         lineDataSet = estimateColorValue(lineDataSet);
-        LineData lineData = new LineData(lineDataSet);
-        customRangeLineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        return new LineData(lineDataSet);
+    }
+
+    private void displayCustomRangeMeasurement(List<Entry> entryList) {
         customRangeLineChart.getXAxis().setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
                 return new SimpleDateFormat("dd-MM").format(value);
             }
         });
-        customRangeLineChart.getDescription().setText("Średnio: " + calcuteAvarage(entryList));
-        customRangeLineChart.getDescription().setTextSize(13);
-        customRangeLineChart.setScaleYEnabled(false);
-        customRangeLineChart.getLegend().setEnabled(false);
-        customRangeLineChart.setData(lineData);
-        customRangeLineChart.invalidate();
+        customRangeLineChart = setMinAndMaxXValuesCustomRange(customRangeLineChart);
+        prepareChart(customRangeLineChart, setUpLineData(entryList), entryList).invalidate();
+    }
+
+    private LineChart setMinAndMaxXValuesOneDay(LineChart lineChart){
+        Calendar startCalendarDate = formatDate(oneDayText.getText().toString());
+        lineChart.getXAxis().setAxisMinimum(evalutateStartDay(startCalendarDate));
+        lineChart.getXAxis().setAxisMaximum(evalutateEndDay(startCalendarDate));
+
+        return lineChart;
+    }
+
+    private LineChart setMinAndMaxXValuesCustomRange(LineChart lineChart){
+        Calendar startCalendarDate = formatDate(startDaytext.getText().toString());
+        Calendar endCalendarDate = formatDate(endDaytext.getText().toString());
+        lineChart.getXAxis().setAxisMinimum(evalutateStartDay(startCalendarDate));
+        lineChart.getXAxis().setAxisMaximum(evalutateEndDay(endCalendarDate));
+
+        return lineChart;
     }
 
     private LineDataSet estimateColorValue(LineDataSet lineDataSet) {
@@ -329,25 +375,7 @@ public class dPressureFragment extends Fragment {
         return lineDataSet;
     }
 
-    private void displayOneDayMeasurement(List<Entry> entryList) {
-        LineDataSet lineDataSet = new LineDataSet(entryList, "");
-        lineDataSet = prepareLineDataSet(lineDataSet);
-        lineDataSet = estimateColorValue(lineDataSet);
-        LineData lineData = new LineData(lineDataSet);
-        oneDayLineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-        oneDayLineChart.getXAxis().setValueFormatter(new ValueFormatter() {
-            @Override
-            public String getFormattedValue(float value) {
-                return new SimpleDateFormat("H:mm").format(value);
-            }
-        });
-        oneDayLineChart.getDescription().setText("Średnio: " + calcuteAvarage(entryList));
-        oneDayLineChart.getDescription().setTextSize(13);
-        oneDayLineChart.setScaleYEnabled(false);
-        oneDayLineChart.getLegend().setEnabled(false);
-        oneDayLineChart.setData(lineData);
-        oneDayLineChart.invalidate();
-    }
+
 
     private String calcuteAvarage(List<Entry> entryList) {
         float sum = 0;

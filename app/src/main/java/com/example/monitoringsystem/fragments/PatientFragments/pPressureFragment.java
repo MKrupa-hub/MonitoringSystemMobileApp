@@ -71,7 +71,7 @@ public class pPressureFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 DialogFragment dateFragment = new SelectDateFragment(R.id.textDateView);
-                dateFragment.show(getFragmentManager(), "DatePicker");
+                dateFragment.show(getChildFragmentManager(), "DatePicker");
             }
         });
 
@@ -79,7 +79,7 @@ public class pPressureFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 DialogFragment timeFragment = new SelectedTimeFragment();
-                timeFragment.show(getFragmentManager(), "TimePicker");
+                timeFragment.show(getChildFragmentManager(), "TimePicker");
 
             }
         });
@@ -155,8 +155,9 @@ public class pPressureFragment extends Fragment {
     }
 
     private String getTime(long timestampValue){
-        Timestamp timestamp = new Timestamp(timestampValue);
-        return timestamp.getHours() + ":" + timestamp.getMinutes();
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(timestampValue);
+        return cal.get(Calendar.HOUR) + ":" + cal.get(Calendar.MINUTE);
     }
 
     private void makeTextNotEditable(EditText editText){

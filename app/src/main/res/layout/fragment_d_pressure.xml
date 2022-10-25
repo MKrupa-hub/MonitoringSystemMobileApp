@@ -8,7 +8,7 @@
     tools:context=".fragments.DoctorFragments.dPressureFragment">
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/pSpinner"
         android:layout_width="155dp"
         android:layout_height="41dp"
         android:layout_marginStart="20dp"
@@ -22,7 +22,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/customRangeDateChart"
+        android:id="@+id/pCustomRangeDateChart"
         android:layout_width="330dp"
         android:layout_height="210dp"
         android:layout_marginTop="20dp"
@@ -48,11 +48,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textInputLayout4"
-        app:layout_constraintTop_toBottomOf="@+id/oneDayChart"
+        app:layout_constraintTop_toBottomOf="@+id/pOneDayChart"
         app:placeholderTextColor="#000000">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textEndDate"
+            android:id="@+id/pTextEndDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#000000"
@@ -60,7 +60,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/oneDayChart"
+        android:id="@+id/pOneDayChart"
         android:layout_width="330dp"
         android:layout_height="210dp"
         android:layout_marginTop="20dp"
@@ -83,11 +83,11 @@
         app:boxStrokeErrorColor="#40C19D"
         app:helperTextTextColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/oneDayChart"
+        app:layout_constraintTop_toBottomOf="@+id/pOneDayChart"
         app:placeholderTextColor="#000000">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textStartDate"
+            android:id="@+id/pTextStartDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#000000"
@@ -115,7 +115,7 @@
         app:placeholderTextColor="#000000">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textOneDay"
+            android:id="@+id/pTextOneDay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#000000"

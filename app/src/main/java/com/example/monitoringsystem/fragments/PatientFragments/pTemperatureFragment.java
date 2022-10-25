@@ -71,7 +71,7 @@ public class pTemperatureFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 DialogFragment dateFragment = new SelectDateFragment(R.id.textDateView);
-                dateFragment.show(getFragmentManager(), "DatePicker");
+                dateFragment.show(getChildFragmentManager(), "DatePicker");
             }
         });
 
@@ -79,7 +79,7 @@ public class pTemperatureFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 DialogFragment timeFragment = new SelectedTimeFragment();
-                timeFragment.show(getFragmentManager(), "TimePicker");
+                timeFragment.show(getChildFragmentManager(), "TimePicker");
 
             }
         });
