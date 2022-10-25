@@ -124,4 +124,5 @@
     <string name="Loadlastpress">Wczytaj poprzedni pomiar</string>
     <string name="Save">Zapisz</string>
     <string name="dtitle">Profil lekarza</string>
+    <string name="logpass_remind">Przypomnij dane</string>
 </resources>

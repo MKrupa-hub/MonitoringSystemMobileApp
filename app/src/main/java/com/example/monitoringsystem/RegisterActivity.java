@@ -1,7 +1,10 @@
 package com.example.monitoringsystem;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -50,9 +53,18 @@ public class RegisterActivity extends AppCompatActivity {
             password.setTransformationMethod(PasswordTransformationMethod.getInstance());
         }
     }
-
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 
     public void register(View view) {
+        if(!isNetworkAvailable()){
+            Toast.makeText(RegisterActivity.this, "Brak dostępu do internetu!", Toast.LENGTH_SHORT).show();
+            return;
+        }
         Button button = findViewById(R.id.button4);
         button.setEnabled(false);
         mDatabase = FirebaseDatabase.getInstance().getReference();

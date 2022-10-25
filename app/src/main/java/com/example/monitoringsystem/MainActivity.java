@@ -43,6 +43,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void remindPassword(View view) {
+        Intent intent = new Intent(this, RemindPassword.class);
+        startActivity(intent);
+    }
+
     public void log_in(View view) {
         login = findViewById(R.id.login);
         password = findViewById(R.id.password);
@@ -52,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
             allert('B');
             return;
         }
-        if(isNetworkAvailable()) {
+        if (isNetworkAvailable()) {
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
             Query checkUser = reference.orderByChild("login").equalTo(login.getText().toString());
             checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -87,8 +92,7 @@ public class MainActivity extends AppCompatActivity {
                     allert('N');
                 }
             });
-        }
-        else{
+        } else {
             allert('I');
         }
     }

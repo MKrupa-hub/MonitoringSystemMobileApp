@@ -114,7 +114,7 @@ public class pTemperatureFragment extends Fragment {
                 Timestamp timestamp = Timestamp.valueOf(date[2] + "-" + date[1] + "-" + date[0] + " " + time[0] + ":" + time[1] + ":00.00");
                 Temperature temperature = new Temperature(login,Float.parseFloat(textTemperature.getText().toString()),timestamp.getTime());
                 mDatabase.child(temperature.getLogin()).child(String.valueOf(snapshot.child(temperature.getLogin()).getChildrenCount() + 1)).setValue(temperature);
-
+                Toast.makeText(getContext(), "Dodano!", Toast.LENGTH_SHORT).show();
             }
 
             @Override
